@@ -21,7 +21,7 @@ import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
-import Halogen.Query.EventSource as HQE
+import Halogen.Query.Event as HQE
 import Util (split)
 import Web.File.Blob (Blob)
 import Web.File.Blob as Blob
@@ -41,10 +41,11 @@ data Action
   = Randomize
   | FileSelected Blob
   | FileLoaded H.SubscriptionId FileReader.FileReader 
+  | NoAction
 
 
 
-component :: forall query input output m. MonadAff m => H.Component HH.HTML query input output m
+component :: forall query input output m. MonadAff m => H.Component query input output m
 component = H.mkComponent
   { initialState
   , render
@@ -76,7 +77,7 @@ render { randomWords } =
         [ HP.classes [ HH.ClassName "random-words" ]] $
         [ renderRandomWordsTable randomWords ]
     , HH.button
-        [ HE.onClick (\_ -> Just Randomize)
+        [ HE.onClick (\_ -> Randomize)
         , HP.classes [ HH.ClassName "randomize-btn" ]
         ]
         [ HH.text "ランダムをもう一度。"
@@ -87,10 +88,10 @@ render { randomWords } =
         , HE.onFileUpload $
             case _ of
               [file] ->
-                Just $ FileSelected (File.toBlob file)
+                FileSelected (File.toBlob file)
 
               _ ->
-                Nothing
+                NoAction
         ]
     ]
     
@@ -134,8 +135,8 @@ handleAction = case _ of
      reader <- liftEffect $ FileReader.fileReader
      liftEffect $ FileReader.readAsText blob reader
 
-     H.subscribe' \sid ->
-       HQE.eventListenerEventSource
+     H.subscribe' \sid -> do
+       HQE.eventListener
          ET.load
          (FileReader.toEventTarget reader)
          (\e -> Just $ FileLoaded sid reader)
@@ -152,3 +153,5 @@ handleAction = case _ of
       Right word -> do
         H.modify_ _ { words = Just $ lines word }
         handleAction Randomize
+
+  NoAction -> pure unit
