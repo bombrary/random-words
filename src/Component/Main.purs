@@ -89,31 +89,44 @@ render { randomWords } =
     , HH.div
         [ HP.classes [ HH.ClassName "random-words" ]] $
         [ renderRandomWords randomWords ]
-    , HH.button
-        [ HE.onClick (\_ -> Randomize)
-        , HP.classes [ HH.ClassName "randomize-btn" ]
-        ]
-        [ HH.text "単語を生成"
-        ]
-    , HH.select
-        [ HE.onValueChange SetWords
-        ]
-        [ HH.option [ HP.value "nouns" ] [ HH.text "名詞" ]
-        , HH.option [ HP.value "verbs" ] [ HH.text "動詞" ]
-        , HH.option [ HP.value "adjectives" ] [ HH.text "形容詞" ]
-        , HH.option [ HP.value "adverbs" ] [ HH.text "副詞" ]
-        -- , HH.option [ HP.value "all" ] [ HH.text "全て" ]
-        ]
-    , HH.input
-        [ HP.type_ HP.InputFile
-        , HP.accept (InputAcceptType [AcceptMediaType (MediaType "text/plain")])
-        , HE.onFileUpload $
-            case _ of
-              [file] ->
-                FileSelected (File.toBlob file)
+    , HH.div
+        [ HP.classes [ HH.ClassName "control-panel" ] ]
+        [ HH.button
+            [ HE.onClick (\_ -> Randomize)
+            , HP.classes [ HH.ClassName "randomize-btn" ]
+            ]
+            [ HH.text "単語を生成"
+            ]
 
-              _ ->
-                NoAction
+        , HH.div
+            [ HP.classes [ HH.ClassName "select-preset" ]]
+            [ HH.select
+              [ HP.classes [ HH.ClassName "select-preset" ]
+              , HE.onValueChange SetWords
+              ]
+              [ HH.option [ HP.value "nouns" ] [ HH.text "名詞" ]
+              , HH.option [ HP.value "verbs" ] [ HH.text "動詞" ]
+              , HH.option [ HP.value "adjectives" ] [ HH.text "形容詞" ]
+              , HH.option [ HP.value "adverbs" ] [ HH.text "副詞" ]
+              -- , HH.option [ HP.value "all" ] [ HH.text "全て" ]
+              ]
+            ]
+          , HH.label
+              [ HP.classes [ HH.ClassName "input-file-wrap" ] ]
+              [ HH.text "ファイルを選択"
+              , HH.input
+                  [ HP.classes [ HH.ClassName "input-file" ]
+                  , HP.type_ HP.InputFile
+                  , HP.accept (InputAcceptType [AcceptMediaType (MediaType "text/plain")])
+                  , HE.onFileUpload $
+                      case _ of
+                        [file] ->
+                          FileSelected (File.toBlob file)
+
+                        _ ->
+                          NoAction
+                  ]
+              ]
         ]
     ]
     

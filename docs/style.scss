@@ -1,9 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
 
+$breakpoint: (
+  sp: 'screen and (max-width: 767px)',
+  tab: 'screen and (min-width: 768px)',
+  pc: 'screen and (min-width: 1025px)'
+);
+
+@mixin mq($bp) {
+  @media #{map-get($breakpoint, $bp)} {
+   @content;
+  }
+}
+
 $color-base0: #fff3b2;
-$color-base1: #ffe0d8;
+$color-base1: white;
+$color-base2: #ffe0d8;
 $color-acc: #ff9b93;
-$color-fg: #41584b;
+$color-fg: #512F3B;
+
+*, *:after, *:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
@@ -13,16 +32,41 @@ body {
 
 main {
   margin: 50px 150px;
+  @include mq(sp) {
+    margin: 20px 10px;
+  }
+
+  @include mq(tab) {
+    margin: 50px 50px;
+  }
+
+  @include mq(pc) {
+    margin: 50px 150px;
+  }
 }
 
 .logo {
   width: 100%;
 }
 
+.description {
+  margin: 24px 0 0 0;
+
+  p {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+.control-panel {
+  margin: 12px 0 0 0;
+  display: flex;
+  align-items: stretch;
+}
+
 .randomize-btn {
-  margin: 20px 0 0 0;
+  padding: 5px 10px;
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: $color-acc;
+  background-color: $color-fg;
   color: white;
   font-weight: bold;
   outline: none;
@@ -31,16 +75,73 @@ main {
   font-size: 1em;
 }
 
+.select-preset {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100px;
+  &::after {
+    position: absolute;
+    top: 30%;
+    right: 15px;
+    width: 10px;
+    height: 10px;
+    border-top: 3px solid $color-fg;
+    border-right: 3px solid $color-fg;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    pointer-events: none;
+    content: ""; 
+  }
+
+  select {
+    height: 100%;
+    appearance: none;
+    margin: 0 0 0 10px;
+    padding: 0 0 0 10px;
+    display: block;
+    font-size: 0.9rem;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+}
+
+.input-file-wrap {
+  display: flex;
+  align-items: center;
+
+  margin: 0 0 0 10px;
+  padding: 0 8px;
+  cursor: pointer;
+
+  border: 1.5px solid $color-fg;
+  border-radius: 4px;
+}
+
+.input-file {
+  display: none;
+}
+
 .random-words {
-  background-color: white;
   padding: 10px 15px;
-  border: 2px dashed #ccc;
-  margin-top: 20px;
-  table {
-    width: 100%;
-    td {
-      padding: 20px 0;
-      text-align: center;
+  border: 2px dashed $color-fg;
+  margin: 24px 0 0 0;
+
+  ul {
+    list-style-type: none;
+
+    display: grid;
+    grid-template-rows: 1fr;
+
+    @include mq(sp) {
+      grid-template-columns: 1fr;
+    }
+
+    @include mq(tab) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include mq(pc) {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 }
