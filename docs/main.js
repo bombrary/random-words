@@ -7584,7 +7584,7 @@ var PS = {};
               return Halogen_HTML_Elements.li_([ Halogen_HTML_Core.text(word) ]);
           })(randomWords.value0));
       };
-      throw new Error("Failed pattern match at Component.Main (line 136, column 3 - line 146, column 16): " + [ randomWords.constructor.name ]);
+      throw new Error("Failed pattern match at Component.Main (line 139, column 3 - line 149, column 16): " + [ randomWords.constructor.name ]);
   };
   var render = function (v) {
       return Halogen_HTML_Elements.main([  ])([ Halogen_HTML_Elements.img([ Halogen_HTML_Properties.classes([ "logo" ]), Halogen_HTML_Properties.src("logo.svg") ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "description" ]) ])([ Halogen_HTML_Elements.p_([ Halogen_HTML_Core.text("\u751f\u6210\u30dc\u30bf\u30f3\u3092\u62bc\u3059\u3068\u3001\u30e9\u30f3\u30c0\u30e0\u306b\u5358\u8a9e\u304c\u751f\u6210\u3055\u308c\u307e\u3059\u3002") ]), Halogen_HTML_Elements.p_([ Halogen_HTML_Core.text("\u751f\u6210\u3059\u308b\u5358\u8a9e\u306e\u54c1\u8a5e\u306f\u3001\u751f\u6210\u30dc\u30bf\u30f3\u53f3\u306e\u9078\u629e\u30e1\u30cb\u30e5\u30fc\u304b\u3089\u9078\u3079\u307e\u3059\u3002\u307e\u305f\u305d\u308c\u4ee5\u5916\u306b\u3082\u3001\u300c\u30d5\u30a1\u30a4\u30eb\u3092\u9078\u629e\u300d\u30dc\u30bf\u30f3\u304b\u3089\u81ea\u5206\u306e\u5358\u8a9e\u30c7\u30fc\u30bf\u3092\u8aad\u307f\u8fbc\u3080\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002\u305f\u3060\u3057\u5358\u8a9e\u30c7\u30fc\u30bf\u306e\u30d5\u30a1\u30a4\u30eb\u306f\u3001\u5358\u8a9e\u304c\u6539\u884c\u3067\u533a\u5207\u3089\u308c\u305f\u30c6\u30ad\u30b9\u30c8\u30d5\u30a1\u30a4\u30eb\u3068\u3057\u307e\u3059\u3002") ]), Halogen_HTML_Elements.p_([ Halogen_HTML_Core.text("\u54c1\u8a5e\u3054\u3068\u306e\u5358\u8a9e\u30c7\u30fc\u30bf\u306f"), Halogen_HTML_Elements.a([ Halogen_HTML_Properties.href("https://bond-lab.github.io/wnja/") ])([ Halogen_HTML_Core.text("\u65e5\u672c\u8a9eWordnet") ]), Halogen_HTML_Core.text("\u3088\u308a\u62bd\u51fa\u3057\u307e\u3057\u305f\u3002") ]) ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "random-words" ]) ])([ renderRandomWords(v.randomWords) ]), Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "control-panel" ]) ])([ Halogen_HTML_Elements.button([ Halogen_HTML_Events.onClick(function (v1) {
@@ -7603,11 +7603,12 @@ var PS = {};
           basicWords: Data_Maybe.Nothing.value
       };
   };
+  var baseURL = "https://bombrary.github.io/";
   var getBasicWords = function (dictMonadAff) {
-      return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)("/data/adjectives.txt")))(function (adjectives) {
-          return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)("/data/nouns.txt")))(function (nouns) {
-              return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)("/data/verbs.txt")))(function (verbs) {
-                  return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)("/data/adverbs.txt")))(function (adverbs) {
+      return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)(baseURL + "/data/adjectives.txt")))(function (adjectives) {
+          return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)(baseURL + "/data/nouns.txt")))(function (nouns) {
+              return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)(baseURL + "/data/verbs.txt")))(function (verbs) {
+                  return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)(baseURL + "/data/adverbs.txt")))(function (adverbs) {
                       return Control_Applicative.pure(((dictMonadAff.MonadEffect0()).Monad0()).Applicative0())(Control_Apply.apply(Data_Either.applyEither)(Control_Apply.apply(Data_Either.applyEither)(Control_Apply.apply(Data_Either.applyEither)(Data_Functor.map(Data_Either.functorEither)(function (adj) {
                           return function (n) {
                               return function (v) {
@@ -7647,7 +7648,7 @@ var PS = {};
                           return $32;
                       });
                   };
-                  throw new Error("Failed pattern match at Component.Main (line 170, column 5 - line 177, column 21): " + [ result.constructor.name ]);
+                  throw new Error("Failed pattern match at Component.Main (line 173, column 5 - line 180, column 21): " + [ result.constructor.name ]);
               });
           };
           if (v instanceof Randomize) {
@@ -7669,7 +7670,7 @@ var PS = {};
                           });
                       });
                   };
-                  throw new Error("Failed pattern match at Component.Main (line 181, column 6 - line 189, column 16): " + [ v1.words.constructor.name ]);
+                  throw new Error("Failed pattern match at Component.Main (line 184, column 6 - line 192, column 16): " + [ v1.words.constructor.name ]);
               });
           };
           if (v instanceof FileSelected) {
@@ -7706,7 +7707,7 @@ var PS = {};
                               return handleAction(dictMonadAff)(Randomize.value);
                           });
                       };
-                      throw new Error("Failed pattern match at Component.Main (line 206, column 5 - line 212, column 31): " + [ v1.constructor.name ]);
+                      throw new Error("Failed pattern match at Component.Main (line 209, column 5 - line 215, column 31): " + [ v1.constructor.name ]);
                   });
               });
           };
@@ -7778,7 +7779,7 @@ var PS = {};
           if (v instanceof NoAction) {
               return Control_Applicative.pure(Halogen_Query_HalogenM.applicativeHalogenM)(Data_Unit.unit);
           };
-          throw new Error("Failed pattern match at Component.Main (line 167, column 16 - line 238, column 24): " + [ v.constructor.name ]);
+          throw new Error("Failed pattern match at Component.Main (line 170, column 16 - line 241, column 24): " + [ v.constructor.name ]);
       };
   };
   var component = function (dictMonadAff) {

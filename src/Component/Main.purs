@@ -26,6 +26,10 @@ import Web.File.File as File
 import Web.File.FileReader as FileReader
 import Web.HTML.Event.EventTypes as ET
 
+baseURL :: String
+baseURL = "https://bombrary.github.io/"
+
+
 type BasicWords = { nouns :: Array String
                   , adjectives :: Array String
                   , adverbs :: Array String
@@ -46,7 +50,6 @@ data Action
   | Initialize
   | SetWords String
   | NoAction
-
 
 
 component :: forall query input output m. MonadAff m => H.Component query input output m
@@ -149,10 +152,10 @@ renderRandomWords randomWords =
 
 getBasicWords :: forall m. MonadAff m => m (Either AX.Error BasicWords)
 getBasicWords = do
-  adjectives <- liftAff $ AX.get string "/data/adjectives.txt"
-  nouns <- liftAff $ AX.get string "/data/nouns.txt"
-  verbs <- liftAff $ AX.get string "/data/verbs.txt"
-  adverbs <- liftAff $ AX.get string "/data/adverbs.txt"
+  adjectives <- liftAff $ AX.get string (baseURL <> "/data/adjectives.txt")
+  nouns <- liftAff $ AX.get string (baseURL <> "/data/nouns.txt")
+  verbs <- liftAff $ AX.get string (baseURL <> "/data/verbs.txt")
+  adverbs <- liftAff $ AX.get string (baseURL <> "/data/adverbs.txt")
   pure $ (\adj n v adv -> { adjectives : lines adj.body
                           , nouns : lines n.body
                           , verbs : lines v.body
