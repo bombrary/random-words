@@ -27,7 +27,7 @@ import Web.File.FileReader as FileReader
 import Web.HTML.Event.EventTypes as ET
 
 baseURL :: String
-baseURL = "/random-word"
+baseURL = "/random-words"
 
 
 type BasicWords = { nouns :: Array String

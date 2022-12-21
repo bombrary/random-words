@@ -7603,7 +7603,7 @@ var PS = {};
           basicWords: Data_Maybe.Nothing.value
       };
   };
-  var baseURL = "/random-word";
+  var baseURL = "/random-words";
   var getBasicWords = function (dictMonadAff) {
       return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)(baseURL + "/data/adjectives.txt")))(function (adjectives) {
           return Control_Bind.bind(((dictMonadAff.MonadEffect0()).Monad0()).Bind1())(Effect_Aff_Class.liftAff(dictMonadAff)(Affjax.get(Affjax_ResponseFormat.string)(baseURL + "/data/nouns.txt")))(function (nouns) {
