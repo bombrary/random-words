@@ -11,3 +11,5 @@ output
 
 .psc-ide-port
 .purs-repl
+
+docs/*.css.map
